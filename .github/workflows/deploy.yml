@@ -1,0 +1,31 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # або інша ваша гілка
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '23'  # чи інша версія Node.js
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build project (якщо потрібно)
+      run: npm run build  # Якщо є процес побудови
+
+    - name: Deploy to GitHub Pages
+      uses: JamesIves/github-pages-deploy-action@4.1.0
+      with:
+        branch: gh-pages  # Гілка, на яку ви хочете зробити деплой
+        folder: build  # або інша папка, яку потрібно розгорнути
